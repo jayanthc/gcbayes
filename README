@@ -1,0 +1,20 @@
+gcbayes README
+-------------------------------------------------------------------------------
+
+To compile:
+
+make
+
+To run:
+
+Running the binary with the '-h' or '--help' flag gives usage information.
+
+Examples:
+gcbayes -N 25 -S 1 -X 500 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y ter5_wide.gc -w
+gcbayes -N 14 -S 1 -X 225 -p 0.005 -e 0.001 -y 47tuc_narrow.gc
+
+In addition to the compiled binary, the program requires two files in the run
+directory - a configuration file, such as the file 'ter5_narrow.gc' included
+here,and a file with individual pulsar flux densities listed in ascending
+order, such as 'flux_ter5', also included here.
+
