@@ -1,20 +1,76 @@
 gcbayes README
 -------------------------------------------------------------------------------
 
-To compile:
+gcbayes is a Bayesian tool to constrain the luminosity function parameters and
+population size of radio pulsars in globular clusters. For more details on
+gcbayes, please refer Chennamangalam, Lorimer, Mandel and Bagchi (2012).
 
-make
+Compilation
+-----------
 
-To run:
+System and software requirements: Requires the PGPLOT library, with C binding.
+This program may need a lot of memory, depending on the user-specified step
+sizes. We have tried to ensure that gcbayes by itself does not leak any memory,
+but we do not guarantee that PGPLOT will not leak memory.
 
-Running the binary with the '-h' or '--help' flag gives usage information.
+To compile, just run 'make'.
+
+Usage
+-----
+
+Usage: bin/gcbayes [options]
+    -h  --help                           Display this usage information
+    -N  --n-min <value>                  Minimum N
+                                         (default is 0)
+    -S  --n-step <value>                 N step size
+                                         (default is 1)
+    -X  --n-max <value>                  Maximum N
+                                         (default is 1000)
+    -m  --mean-min <value>               The minimum mean (<log S>)
+                                         (default is -1.19)
+    -p  --mean-step <value>              The mean (<log L>) step size
+                                         (default is 0.01)
+    -u  --mean-max <value>               The maximum mean (<log L>)
+                                         (default is -1.04)
+    -s  --sd-min <value>                 The minimum standard deviation (of
+                                         log L)
+                                         (default is 0.91)
+    -e  --sd-step <value>                The standard deviation (of log L)
+                                         step size
+                                         (default is 0.01)
+    -a  --sd-max <value>                 The maximum standard deviation (of
+                                         log L)
+                                         (default is 0.98)
+    -l  --s-min-min <value>              The minimum flux in mJy
+                                         (default is 0.001)
+    -t  --s-min-step <value>             The flux step size in mJy
+                                         (default is 0.001)
+    -y  --conf-file <filename>           Config file
+    -c  --colour-map <name>              Name of colour map
+    -f  --plot-ps                        Print to PS file, instead of screen
+    -z  --plot-all                       Plot both S and L posteriors
+    -w  --plot-lall                      Plot all marginalised posteriors for L
 
 Examples:
 gcbayes -N 25 -S 1 -X 500 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y ter5_wide.gc -w
 gcbayes -N 14 -S 1 -X 225 -p 0.005 -e 0.001 -y 47tuc_narrow.gc
 
-In addition to the compiled binary, the program requires two files in the run
-directory - a configuration file, such as the file 'ter5_narrow.gc' included
-here,and a file with individual pulsar flux densities listed in ascending
-order, such as 'flux_ter5', also included here.
+In addition to the compiled binary, the program requires two files in the
+directory where the program is run from - a config file, such as the file
+misc/ter5_narrow.gc, and a file with individual pulsar flux densities listed in
+ascending order, such as misc/flux_ter5, also included here.
+
+The format of the config file is as shown in this example below:
+Ter5                    # Name of globular cluster (for reference, not used by program)
+flux_ter5               # Path to flux file (containing fluxes in ascending order)
+25                      # Number of detected pulsars (should be equal to the number of lines in the flux file)
+5.5                     # Distance to the globular cluster in kpc
+0.9                     # Uncertainty on the above distance in kpc 
+5.2                     # Diffuse flux in mJy
+-3.1                    # Minimum of mu_S, corresponding to lower limit of mu_L prior and above distance and uncertainty
+-1.9                    # Maximum of mu_S, corresponding to upper limit of_mu_L prior and above distance and uncertainty
+
+The range of mu_S that should be used can be found out for a given range of
+mu_L and a given distance and uncertainty, using the MATLAB/Octave program
+misc/murange.m.
 
