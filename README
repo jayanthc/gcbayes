@@ -55,10 +55,8 @@ Examples:
 gcbayes -N 25 -S 1 -X 500 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y ter5_wide.gc -w
 gcbayes -N 14 -S 1 -X 225 -p 0.005 -e 0.001 -y 47tuc_narrow.gc
 
-In addition to the compiled binary, the program requires two files in the
-directory where the program is run from - a config file, such as the file
-misc/ter5_narrow.gc, and a file with individual pulsar flux densities listed in
-ascending order, such as misc/flux_ter5, also included here.
+In addition to the compiled binary, the program requires a config file (such as
+the file run/ter5_narrow.gc) to be in the directory where the program is run.
 
 The format of the config file is as shown in this example below:
 Ter5                    # Name of globular cluster (for reference, not used by program)
@@ -72,5 +70,5 @@ flux_ter5               # Path to flux file (containing fluxes in ascending orde
 
 The range of mu_S that should be used can be found out for a given range of
 mu_L and a given distance and uncertainty, using the MATLAB/Octave program
-misc/murange.m.
+run/murange.m.
 
