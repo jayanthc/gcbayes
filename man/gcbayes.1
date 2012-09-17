@@ -24,84 +24,68 @@ Perform a Bayesian analysis of globular cluster pulsar luminosities.
 
 .SH OPTIONS
 .TP
-\-h
+\-h  --help
 display a short help text
 .TP
-\-d
-select the input device
+\-N  --n-min <value>
+minimum N (default is 0)
 .TP
-\-f
-set the number of 2GB files to be written
+\-S  --n-step <value>
+step size in N  (default is 1)
 .TP
-\-t
-set the acquisition time in minutes
+\-X  --n-max <value>
+maximum N (default is 1000)
 .TP
-\-m
-select the acquisition mode
+\-m  --mean-min <value>
+minimum mean (<log S>) (default is -1.19)
 .TP
-\-s
-override the source name read from the config file
+\-p  --mean-step <value>
+mean (<log L>) step size (default is 0.01)
 .TP
-\-o
-in sniff modes, set the packet offset
+\-u  --mean-max <value>
+maximum mean (<log L>) (default is -1.04)
 .TP
-\-k
-kill the existing instance of this program
+\-s  --sd-min <value>
+minimum standard deviation (of log L) (default is 0.91)
 .TP
-\-c
-use the M&C config file
+\-e  --sd-step <value>
+standard deviation (of log L) step size (default is 0.01)
 .TP
-\-v
-display the version
-
-
-.SH ENVIRONMENT
+\-a  --sd-max <value>
+maximum standard deviation (of log L) (default is 0.98)
 .TP
-HOME
-Base directory, used to locate the files required by this program.
-
+\-l  --s-min-min <value>
+minimum flux in mJy (default is 0.001)
+.TP
+\-t  --s-min-step <value>
+flux step size in mJy (default is 0.001)
+.TP
+\-y  --conf-file <filename>
+config file
+.TP
+\-c  --colour-map <name>
+name of colour map
+.TP
+\-f  --plot-ps
+print to PS file, instead of screen
+.TP
+\-z  --plot-all
+plot both S and L posteriors
+.TP
+\-w  --plot-lall
+plot all marginalised posteriors for L
 
 .SH FILES
 .TP
-~/config/mbr_das.xml
-The DAS configuration file.
+run/<GC-config>.gc
+The globular cluster configuration file.
 .TP
-~/config/mbr_das.dtd
-The Document Type Definition file for the DAS configuration file.
-.TP
-~/config/mbr_mc.xml
-The M&C configuration file.
-.TP
-~/config/mbr_mc.dtd
-The Document Type Definition file for the M&C configuration file.
-.TP
-~/log/error.log
-The error log file.
-.TP
-~/lock/acquire.lock
-Lock file used to limit the number of instances of the program to one.
-.TP
-~/scripts/mbr_killacquire.py
-The script run by the program to kill existing instances, on given the
--k flag.
-
-
-.SH NOTES
-
-
-.SH BUGS
-The lock file will not get removed if the PC gets switched off abruptly, as
-can happen typically on power supply failure. If mbracquire is run on
-booting the PC again, it will terminate after displaying the following
-error message:
-
-.I ERROR: Another instance found!
-
-The way around this problem is to delete the lock file.
+run/<GC-flux>
+The globular cluster pulsar flux list.
 
 
 .SH EXAMPLE
-mbracquire -d eth0 -f 2
+gcbayes -N 25 -S 1 -X 500 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y ter5_wide.gc -w
 
 
 .SH SEE ALSO
@@ -112,3 +96,4 @@ mbracquire -d eth0 -f 2
 .TP 
 gcbayes was written by Jayanth Chennamangalam with inputs from Duncan \
 Lorimer, Ilya Mandel, and Manjari Bagchi.
+
