@@ -16,7 +16,7 @@
 
 #define LEN_GENSTRING       256
 #define CMAP_LEVELS         64
-#define NUM_CMAPS           19
+#define NUM_CMAPS           20
 
 typedef enum CMap_e
 {
@@ -27,6 +27,7 @@ typedef enum CMap_e
     CMAP_COPPER,
     CMAP_FLAG,
     CMAP_GRAY,
+    CMAP_GRAY_INV,
     CMAP_HOT,
     CMAP_HOT_INV,
     CMAP_HSV,
@@ -48,6 +49,7 @@ typedef enum CMap_e
 #define CMAP_STR_COPPER     "copper"
 #define CMAP_STR_FLAG       "flag"
 #define CMAP_STR_GRAY       "gray"
+#define CMAP_STR_GRAY_INV   "gray-inv"
 #define CMAP_STR_HOT        "hot"
 #define CMAP_STR_HOT_INV    "hot-inv"
 #define CMAP_STR_HSV        "hsv"

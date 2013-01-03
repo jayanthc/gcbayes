@@ -4,5 +4,5 @@ flux_47tuc              # path to flux file
 4.69                    # d (kpc)
 0.17                    # sigma_d
 2.0                     # S_obs (mJy)
--2.717                  # min_mu_s, corresponding to min_mu_l = -1.19 and the above distance + uncertainty
--1.724                  # max_mu_s, corresponding to max_mu_l = -1.04 and the above distance + uncertainty
+-2.622                  # min_mu_s, corresponding to min_mu_l = -1.19 and the above distance + uncertainty
+-2.2824                 # max_mu_s, corresponding to max_mu_l = -1.04 and the above distance + uncertainty

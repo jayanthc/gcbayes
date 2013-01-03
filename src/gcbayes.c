@@ -20,6 +20,7 @@ float* g_pfS_i = NULL;
 float* g_pfDist = NULL;
 float* g_pfPDist = NULL;
 float* g_pfSTotLhd = NULL;
+long double* g_pdSTotLhd = NULL;
 float* g_pfLTotLhd = NULL;
 float* g_pfLPost = NULL;
 float* g_pfLPostMarg_MeanSD = NULL;
@@ -42,8 +43,6 @@ int main(int argc, char *argv[])
     float fStartSD = DEF_MIN_SD;
     float fMaxSD = DEF_MAX_SD;
     float fStepSD = DEF_STEP_SD;
-    float fStartSMin = DEF_MIN_S_MIN;
-    float fStepSMin = DEF_STEP_S_MIN;
     int iColourMap = DEF_CMAP;
     int iNeedPS = FALSE;
     int iPlotAll = FALSE;
@@ -176,7 +175,6 @@ int main(int argc, char *argv[])
     iRet = DoGrid(iStartN, iStepN, iMaxN,
                   fStartLMean, fStepLMean, fMaxLMean,
                   fStartSD, fStepSD, fMaxSD,
-                  fStartSMin, fStepSMin,
                   acFileConf,
                   iColourMap, iNeedPS, iPlotAll);
     if (iRet != EXIT_SUCCESS)
@@ -195,7 +193,6 @@ int main(int argc, char *argv[])
 int DoGrid(int iStartN, int iStepN, int iMaxN,
            float fStartLMean, float fStepLMean, float fMaxLMean,
            float fStartSD, float fStepSD, float fMaxSD,
-           float fStartSMin, float fStepSMin,
            char acFileConf[],
            int iColourMap, int iNeedPS, int iPlotAll)
 {
@@ -207,10 +204,10 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     int m = 0;
     int n = 0;
     int in = 0;
-    int iLenN = (int) ((iMaxN - iStartN) / iStepN);
-    int iLenLMean = (int) ((fMaxLMean - fStartLMean) / fStepLMean);
-    int iLenSD = (int) ((fMaxSD - fStartSD) / fStepSD);
-    int iLenSMin = 0;
+    int iLenN = (int) ((iMaxN - iStartN) / iStepN) + 1;
+    int iLenLMean = (int) ((fMaxLMean - fStartLMean) / fStepLMean) + 1;
+    int iLenSD = (int) ((fMaxSD - fStartSD) / fStepSD) + 1;
+    int iLenSMin = DEF_LEN_S_MIN;
     int iRangeN = iMaxN - iStartN;
     float fRangeLMean = fMaxLMean - fStartLMean;
     float fRangeSD = fMaxSD - fStartSD;
@@ -227,7 +224,9 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     float fMaxDist = 0.0;
     float fStepDist = 0.0;
     int iLenDist = 0;
-    float fp_obs = 0.0;
+    float fStartSMin = DEF_MIN_S_MIN;
+    float fStepSMin = 0.0;
+    double dp_obs = (double) 0.0;
     float fDataMin = FLT_MAX;
     float fDataMax = -(FLT_MAX);
     float fMaxSMin = 0.0;
@@ -238,6 +237,7 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     float fOpt = 0.0;
     unsigned long iFreeBytes = 0;
     unsigned long iBytesNeeded = 0;
+    long double dVol = 0.0;
 
     stConf = ReadGCConf(acFileConf);
     if ('\0' == stConf.acGCName[0])
@@ -248,6 +248,12 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     }
     (void) strncpy(acFileFlux, stConf.acFileFlux, LEN_GENSTRING);
     in = stConf.in;
+    if (iStartN != in)
+    {
+        (void) fprintf(stderr,
+                       "ERROR: Minimum N not equal to n!\n");
+        return EXIT_FAILURE;
+    }
     fDist = stConf.fDist;
     fDistSD = stConf.fDistSD;
     /* user input validation */
@@ -350,7 +356,7 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     /* NOTE: assumes file with fluxes sorted in ascending order */
     stConf.fSMin = g_pfS_i[0];
     fMaxSMin = stConf.fSMin;
-    iLenSMin = (int) ((fMaxSMin - fStartSMin) / fStepSMin);
+    fStepSMin = (fMaxSMin - fStartSMin) / (iLenSMin - 1);
     g_pfSMin = (float *) malloc((size_t) iLenSMin * sizeof(float));
     if (NULL == g_pfSMin)
     {
@@ -367,6 +373,7 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     }
     fRangeSMin = fMaxSMin - fStartSMin;
 
+#if 0
     /* check if we have enough memory - estimate the memory that will be needed
        and compare it to the free memory (not including reclaimable memory) */
     /* NOTE: this is just the memory required for the luminosity domain
@@ -378,14 +385,17 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     {
         (void) fprintf(stderr,
                        "ERROR: Insufficient memory. "
-                       "Try reducing ranges and/or step sizes.\n");
+                       "Need %ld bytes, have %ld bytes. "
+                       "Try reducing ranges and/or step sizes.\n",
+                       iBytesNeeded, iFreeBytes);
         return EXIT_FAILURE;
     }
+#endif
 
     /* total likelihood (flux domain) */
-    g_pfSTotLhd = (float*) malloc((size_t) iLenSMean * iLenSD * iLenSMin * iLenN
-                                  * sizeof(float));
-    if (NULL == g_pfSTotLhd)
+    g_pdSTotLhd = (long double*) malloc((size_t) iLenSMean * iLenSD * iLenSMin * iLenN
+                                  * sizeof(long double));
+    if (NULL == g_pdSTotLhd)
     {
         (void) fprintf(stderr,
                        "ERROR: %s %d: Memory allocation failed! %s\n",
@@ -402,23 +412,31 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         {
             for (k = 0; k < iLenSMin; ++k)
             {
-                fp_obs = CalcPObs(g_pfSMean[j], g_pfSD[i], g_pfSMin[k]);
-                float fS1Lhd = CalcS1Lhd(in, g_pfS_i,
-                                          fp_obs,
+                dp_obs = CalcPObs(g_pfSMean[j], g_pfSD[i], g_pfSMin[k]);
+                /* NOTE: ideally, dp_obs can be 0.0, but it causes errors in
+                   CalcS1Lhd() and CalcS2Lhd(), respectively */
+                assert((dp_obs > (double) 0.0) && (dp_obs <= (double) 1.0));
+                long double dS1Lhd = CalcS1Lhd(in,
+                                          g_pfS_i,
+                                          dp_obs,
                                           g_pfSMean[j],
                                           g_pfSD[i]);
                 for (l = 0; l < iLenN; ++l)
                 {
-                    (g_pfSTotLhd
+                    (g_pdSTotLhd
                      + (i * iLenSMean * iLenSMin * iLenN)
                      + (j * iLenSMin * iLenN)
                      + (k * iLenN))[l]
-                        = fS1Lhd
-                          * CalcS2Lhd(in, fp_obs, (int) g_pfN[l])
-                          * CalcS3Lhd(fSObs,
+                        = dS1Lhd
+                          * (long double) CalcS2Lhd(in, dp_obs, (int) g_pfN[l])
+                          * (long double) CalcS3Lhd(fSObs,
                                       (int) g_pfN[l],
                                       g_pfSMean[j],
                                       g_pfSD[i]);
+                    dVol += (g_pdSTotLhd
+                             + (i * iLenSMean * iLenSMin * iLenN)
+                             + (j * iLenSMin * iLenN)
+                             + (k * iLenN))[l];
                 }
             }
         }
@@ -427,6 +445,49 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     /* reclaim memory */
     free(g_pfS_i);
     g_pfS_i = NULL;
+
+    g_pfSTotLhd = (float*) malloc((size_t) iLenSMean * iLenSD * iLenSMin * iLenN
+                                  * sizeof(float));
+    if (NULL == g_pfSTotLhd)
+    {
+        (void) fprintf(stderr,
+                       "ERROR: %s %d: Memory allocation failed! %s\n",
+                       __FILE__,
+                       __LINE__,
+                       strerror(errno));
+        return EXIT_FAILURE;
+    }
+    for (i = 0; i < iLenSD; ++i)
+    {
+        for (j = 0; j < iLenSMean; ++j)
+        {
+            for (k = 0; k < iLenSMin; ++k)
+            {
+                for (l = 0; l < iLenN; ++l)
+                {
+                    (g_pfSTotLhd
+                     + (i * iLenSMean * iLenSMin * iLenN)
+                     + (j * iLenSMin * iLenN)
+                     + (k * iLenN))[l]
+                    #if 0
+                     = (float) (g_pdSTotLhd
+                                + (i * iLenSMean * iLenSMin * iLenN)
+                                + (j * iLenSMin * iLenN)
+                                + (k * iLenN))[l];
+                    #else
+                     = (float) ((g_pdSTotLhd
+                                + (i * iLenSMean * iLenSMin * iLenN)
+                                + (j * iLenSMin * iLenN)
+                                + (k * iLenN))[l] / dVol);
+                    #endif
+                }
+            }
+        }
+    }
+
+    /* reclaim meory */
+    free(g_pdSTotLhd);
+    g_pdSTotLhd = NULL;
 
     /* create the prior on r - a gaussian */
     fStartDist = fDist - (3 * fDistSD);
@@ -612,6 +673,8 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     /* constant, but for completion */
     fOpt = (1.0 / iRangeN) * (1.0 / fRangeLMean)
            * (1.0 / fRangeSD) * (1.0 / fRangeSMin);
+    float fRangeDist = fMaxDist - fStartDist;
+    fOpt *= (1.0 / fRangeDist);
     /* compute posterior (luminosity domain) */
     for (i = 0; i < iLenDist; ++i)
     {
@@ -725,7 +788,25 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     }
     else                            /* plot to PS file */
     {
-        iRet = cpgopen(PG_DEV_PS_GRID);
+        /* generate a new file name based on the current time, so that files
+           are not overwritten */
+        time_t Time;
+        struct tm *pstTime = NULL;
+        char acTimestamp[LEN_GENSTRING] = {0};
+        char acDevName[LEN_GENSTRING] = {0};
+
+        /* get the current time */
+        Time = time(NULL);
+        pstTime = localtime(&Time);
+
+        (void) strftime(acTimestamp, sizeof(acTimestamp), "%Y%m%d_%H%M%S", pstTime);
+        (void) sprintf(acDevName,
+                       "%s_%s.%s",
+                       "gcbayes",
+                       acTimestamp,
+                       "ps/CPS");
+
+        iRet = cpgopen(acDevName);
         if (iRet <= 0)
         {
             (void) fprintf(stderr,
@@ -846,12 +927,12 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             cpglab("\\gm", "\\gs", "");
 
             /* plot FK06 point */
-            //cpgsci(PG_CI_DEF);
+            cpgsci(PG_CI_DEF);
             /* make the marker bold */
-            //cpgslw(4);
-            //cpgpt1(-1.1, 0.9, PG_SYMBOL);
+            cpgslw(4);
+            cpgpt1(-1.1, 0.9, PG_SYMBOL);
             /* reset the line width */
-            //cpgslw(1);
+            cpgslw(1);
             cpgsci(PG_CI_DEF);
 
             /* reclaim memory */
@@ -956,20 +1037,21 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         stStats.fMedian = powf(10, stStats.fMedian);
         stStats.fMinCI = powf(10, stStats.fMinCI);
         stStats.fMaxCI = powf(10, stStats.fMaxCI);
-        (void) printf("Mean of N = %g\n", stStats.fMean);
-        (void) printf("Mode of N = %g\n", stStats.fMode);
-        (void) printf("Median of N = %g, P = %g\n",
-                      stStats.fMedian,
+        (void) printf("Mean of N = %d\n", (int) stStats.fMean);
+        (void) printf("Mode of N = %d\n", (int) stStats.fMode);
+        (void) printf("Median of N = %d, P = %g\n",
+                      (int) stStats.fMedian,
                       stStats.fMedianP);
-        (void) printf("CI Min = %g\n", stStats.fMinCI);
-        (void) printf("CI Max = %g\n", stStats.fMaxCI);
-        (void) printf("CI Min - Median = %g\n",
-                      stStats.fMinCI - stStats.fMedian);
-        (void) printf("CI Max - Median = %g\n",
-                      stStats.fMaxCI - stStats.fMedian);
+        (void) printf("N: CI Min = %d\n", (int) stStats.fMinCI);
+        (void) printf("N: CI Max = %d\n", (int) stStats.fMaxCI);
+        (void) printf("N: CI Min - Median = %d\n",
+                      (int) (stStats.fMinCI - stStats.fMedian));
+        (void) printf("N: CI Max - Median = %d\n",
+                      (int) (stStats.fMaxCI - stStats.fMedian));
 
         /* draw box */
         cpgbox("BCLNST", 0.0, 0, "BCNST", 0.0, 0);
+        //cpgbox("BCLNST", 0.0, 0, "BCNST", 0.006, 5);   /* for 47 Tuc */
 
         /* reclaim memory */
         free(g_pfLogN);
@@ -1038,11 +1120,11 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             (void) printf("Median of mu = %g, P = %g\n",
                           stStats.fMedian,
                           stStats.fMedianP);
-            (void) printf("CI Min = %g\n", stStats.fMinCI);
-            (void) printf("CI Max = %g\n", stStats.fMaxCI);
-            (void) printf("CI Min - Median = %g\n",
+            (void) printf("mu: CI Min = %g\n", stStats.fMinCI);
+            (void) printf("mu: CI Max = %g\n", stStats.fMaxCI);
+            (void) printf("mu: CI Min - Median = %g\n",
                           stStats.fMinCI - stStats.fMedian);
-            (void) printf("CI Max - Median = %g\n",
+            (void) printf("mu: CI Max - Median = %g\n",
                           stStats.fMaxCI - stStats.fMedian);
 
             /* draw box */
@@ -1111,11 +1193,11 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             (void) printf("Median of sigma = %g, P = %g\n",
                           stStats.fMedian,
                           stStats.fMedianP);
-            (void) printf("CI Min = %g\n", stStats.fMinCI);
-            (void) printf("CI Max = %g\n", stStats.fMaxCI);
-            (void) printf("CI Min - Median = %g\n",
+            (void) printf("sigma: CI Min = %g\n", stStats.fMinCI);
+            (void) printf("sigma: CI Max = %g\n", stStats.fMaxCI);
+            (void) printf("sigma: CI Min - Median = %g\n",
                           stStats.fMinCI - stStats.fMedian);
-            (void) printf("CI Max - Median = %g\n",
+            (void) printf("sigma: CI Max - Median = %g\n",
                           stStats.fMaxCI - stStats.fMedian);
 
             /* draw box */
@@ -1184,11 +1266,11 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             (void) printf("Median of Smin = %g, P = %g\n",
                           stStats.fMedian,
                           stStats.fMedianP);
-            (void) printf("CI Min = %g\n", stStats.fMinCI);
-            (void) printf("CI Max = %g\n", stStats.fMaxCI);
-            (void) printf("CI Min - Median = %g\n",
+            (void) printf("Smin: CI Min = %g\n", stStats.fMinCI);
+            (void) printf("Smin: CI Max = %g\n", stStats.fMaxCI);
+            (void) printf("Smin: CI Min - Median = %g\n",
                           stStats.fMinCI - stStats.fMedian);
-            (void) printf("CI Max - Median = %g\n",
+            (void) printf("Smin: CI Max - Median = %g\n",
                           stStats.fMaxCI - stStats.fMedian);
 
             /* draw box */
@@ -1257,11 +1339,11 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             (void) printf("Median of d = %g, P = %g\n",
                           stStats.fMedian,
                           stStats.fMedianP);
-            (void) printf("CI Min = %g\n", stStats.fMinCI);
-            (void) printf("CI Max = %g\n", stStats.fMaxCI);
-            (void) printf("CI Min - Median = %g\n",
+            (void) printf("d: CI Min = %g\n", stStats.fMinCI);
+            (void) printf("d: CI Max = %g\n", stStats.fMaxCI);
+            (void) printf("d: CI Min - Median = %g\n",
                           stStats.fMinCI - stStats.fMedian);
-            (void) printf("CI Max - Median = %g\n",
+            (void) printf("d: CI Max - Median = %g\n",
                           stStats.fMaxCI - stStats.fMedian);
 
             /* draw box */
@@ -1284,26 +1366,42 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
 }
 
 /* calculate p_obs */
-float CalcPObs(float fSMean, float fSD, float fSMin)
+double CalcPObs(float fSMean, float fSD, float fSMin)
 {
-    return (erfc((log10(fSMin) - fSMean) / (fSD * SQRT_2)) / 2);
+    double dp_obs = 0.0;
+
+    feclearexcept(FE_ALL_EXCEPT);
+    dp_obs = erfc((double) ((log10f(fSMin) - fSMean) / (fSD * SQRT_2))) / 2;
+    if (fetestexcept(FE_UNDERFLOW))
+    {
+        dp_obs = DBL_MIN;
+    }
+
+    return dp_obs;
 }
 
-
 /* calculate step 1 likelihood */
-float CalcS1Lhd(int in, float *pfFlux,
-                float fp_obs, float fSMean, float fSD)
+long double CalcS1Lhd(int in, float *pfFlux,
+                      double dp_obs, float fSMean, float fSD)
 {
     float fOpt = 2 * fSD * fSD;
-    float fS1Lhd = 1.0;
+    long double dS1Lhd = 1.0;
 
     for (int i = 0; i < in; ++i)
     {
-        fS1Lhd *= (exp(-pow((log10(pfFlux[i]) - fSMean), 2) / fOpt)
-                   / (fp_obs * fSD * sqrt(2 * M_PI)));
+        dS1Lhd *= (expl((long double) -pow((log10f(pfFlux[i]) - fSMean), 2) / fOpt)
+                   / (dp_obs * fSD * sqrt(2 * M_PI)));
+        if (dS1Lhd > LDBL_MAX)
+        {
+            dS1Lhd = LDBL_MAX;
+        }
+        else if (0.0 == dS1Lhd)
+        {
+            dS1Lhd = LDBL_MIN;
+        }
     }
 
-    return fS1Lhd;
+    return dS1Lhd;
 }
 
 /* from Numerical Recipes */
@@ -1334,14 +1432,15 @@ float factln(int n)
     if (n <= 100) return a[n] ? a[n] : (a[n]=gammln(n+1.0));
     else return gammln(n+1.0);
 }
+
 /* calculate step 2 likelihood */
-float CalcS2Lhd(int in, float fp_obs, int iN)
+float CalcS2Lhd(int in, double dp_obs, int iN)
 {
     return (exp((float) (factln(iN) - factln(in) - factln(iN - in)))
-            * pow(fp_obs, in)
+            * pow((double) dp_obs, in)
             /* NOTE: pow(x, 0) is 1 in the math library, even when x is 0 or
                NaN! */
-            * pow((1.0 - fp_obs), (iN - in)));
+            * pow(((double) 1.0 - dp_obs), (iN - in)));
 }
 
 /* calculate step 3 likelihood */

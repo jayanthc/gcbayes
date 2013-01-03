@@ -23,6 +23,10 @@
 #include <sys/resource.h>
 #include <unistd.h>
 
+//test
+#include <fenv.h>
+//
+
 #include <cpgplot.h>
 #include "colourmap.h"
 
@@ -37,7 +41,7 @@
 #define LEN_GENSTRING       256 /**< @brief Length of a generic string */
 
 #define DEF_MIN_S_MIN       0.001
-#define DEF_STEP_S_MIN      0.001
+#define DEF_LEN_S_MIN       20
 
 #define DEF_MIN_N           0
 #define DEF_STEP_N          1
@@ -66,7 +70,7 @@
 #define PG_VP_MR            0.83    /**< @brief Right margin */
 #define PG_VP_MB            0.17    /**< @brief Bottom margin */
 #define PG_VP_MT            0.83    /**< @brief Top margin */
-#define PG_SYMBOL           2
+#define PG_SYMBOL           5
 #define PG_CI_DEF           1
 #define PG_CI_PLOT          11
 #define PG_HBIN_LIM         200 
@@ -105,18 +109,17 @@ STATS GetStats(float* pfX, float* pfP, float fStepX, int iLen,
 int DoGrid(int iStartN, int iStepN, int iMaxN,
            float fStartLMean, float fStepLMean, float fMaxLMean,
            float fStartSD, float fStepSD, float fMaxSD,
-           float fStartSMin, float fStepSMin,
            char acFileConf[],
            int iColourMap, int iNeedPS, int iPlotLumAll);
 GC_CONF ReadGCConf(char* pcFileConf);
 void CleanUp(void);
 void PrintUsage(const char *pcProgName);
-float CalcPObs(float fSMean, float fSD, float fSMin);
-float CalcS1Lhd(int in, float *pfFlux,
-                float fp_obs, float fSMean, float fSD);
+double CalcPObs(float fSMean, float fSD, float fSMin);
+long double CalcS1Lhd(int in, float *pfFlux,
+                double dp_obs, float fSMean, float fSD);
 float gammln(float xx);
 float factln(int n);
-float CalcS2Lhd(int in, float fp_obs, int iN);
+float CalcS2Lhd(int in, double dp_obs, int iN);
 float CalcS3Lhd(float fSObs, int iN, float fSMean, float fSD);
 int GetIndex(float* pfArray, int iLen, float fEpsilon, float fVal);
 

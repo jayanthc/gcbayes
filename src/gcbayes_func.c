@@ -17,6 +17,7 @@ extern float* g_pfS_i;
 extern float* g_pfDist;
 extern float* g_pfPDist;
 extern float* g_pfSTotLhd;
+extern double* g_pdSTotLhd;
 extern float* g_pfLTotLhd;
 extern float* g_pfLPost;
 extern float* g_pfLPostMarg_MeanSD;
@@ -194,6 +195,11 @@ void CleanUp()
         free(g_pfSTotLhd);
         g_pfSTotLhd = NULL;
     }
+    if (g_pdSTotLhd != NULL)
+    {
+        free(g_pdSTotLhd);
+        g_pdSTotLhd = NULL;
+    }
     if (g_pfLTotLhd != NULL)
     {
         free(g_pfLTotLhd);
@@ -292,10 +298,10 @@ void PrintUsage(const char *pcProgName)
     (void) printf("The minimum flux in mJy\n");
     (void) printf("                                         ");
     (void) printf("(default is %g)\n", DEF_MIN_S_MIN);
-    (void) printf("    -t  --s-min-step <value>             ");
-    (void) printf("The flux step size in mJy\n");
-    (void) printf("                                         ");
-    (void) printf("(default is %g)\n", DEF_STEP_S_MIN);
+    //(void) printf("    -t  --s-min-step <value>             ");
+    //(void) printf("The flux step size in mJy\n");
+    //(void) printf("                                         ");
+    //(void) printf("(default is %g)\n", DEF_STEP_S_MIN);
     (void) printf("    -y  --conf-file <filename>           ");
     (void) printf("Config file\n");
     (void) printf("    -c  --colour-map <name>              ");

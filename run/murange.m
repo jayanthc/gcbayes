@@ -7,11 +7,12 @@
 %mu_d = 5.5;     % kpc
 %sigma_d = 0.9;
 % 47tuc
-%mu_d = 4.0;     % kpc
-%sigma_d = 0.6;
+%mu_d = 4.69;     % kpc
+%sigma_d = 0.17;
 % m28
 mu_d = 5.5;     % kpc
-sigma_d = 0.825;
+sigma_d = 0.3;
+
 d = linspace((mu_d - 3 * sigma_d), (mu_d + 3 * sigma_d));
 
 mu_s_min = -6.0;

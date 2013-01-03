@@ -2,7 +2,7 @@ M28                     # GC name
 flux_m28                # path to flux file
 9                       # n
 5.5                     # d (kpc)
-0.825                   # sigma_d
+0.3                     # sigma_d
 1.8                     # S_obs (mJy)
--2.994                  # min_mu_s, corresponding to min_mu_l = -1.19 and the above distance + uncertainty
--2.001                  # max_mu_s, corresponding to max_mu_l = -1.04 and the above distance + uncertainty
+-2.8024                 # min_mu_s, corresponding to min_mu_l = -1.19 and the above distance + uncertainty
+-2.3655                 # max_mu_s, corresponding to max_mu_l = -1.04 and the above distance + uncertainty
