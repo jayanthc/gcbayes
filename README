@@ -3,7 +3,7 @@ gcbayes README
 
 gcbayes is a Bayesian tool to constrain the luminosity function parameters and
 population size of radio pulsars in globular clusters. For more details on
-gcbayes, please refer Chennamangalam, Lorimer, Mandel and Bagchi (2012).
+gcbayes, please refer Chennamangalam, Lorimer, Mandel and Bagchi (2013).
 
 Compilation
 -----------
@@ -65,8 +65,8 @@ flux_ter5               # Path to flux file (containing fluxes in ascending orde
 5.5                     # Distance to the globular cluster in kpc
 0.9                     # Uncertainty on the above distance in kpc 
 5.2                     # Diffuse flux in mJy
--3.1                    # Minimum of mu_S, corresponding to lower limit of mu_L prior and above distance and uncertainty
--1.9                    # Maximum of mu_S, corresponding to upper limit of_mu_L prior and above distance and uncertainty
+-3.828                  # Minimum of mu_S, corresponding to lower limit of mu_L prior and above distance and uncertainty
+-0.393                  # Maximum of mu_S, corresponding to upper limit of_mu_L prior and above distance and uncertainty
 
 The range of mu_S that should be used can be found out for a given range of
 mu_L and a given distance and uncertainty, using the MATLAB/Octave program
