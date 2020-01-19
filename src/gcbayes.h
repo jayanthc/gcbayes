@@ -103,7 +103,9 @@ typedef struct tagStats
 
 int RegisterSignalHandlers(void);
 void HandleStopSignals(int iSigNo);
+#if 0
 unsigned long int GetFreeMem(void);
+#endif
 STATS GetStats(float* pfX, float* pfP, float fStepX, int iLen,
                int iPlotLumAll);
 int DoGrid(int iStartN, int iStepN, int iMaxN,

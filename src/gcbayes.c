@@ -235,8 +235,10 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     char acFileFlux[LEN_GENSTRING] = {0};
     GC_CONF stConf = {{0}};
     float fOpt = 0.0;
+#if 0
     unsigned long iFreeBytes = 0;
     unsigned long iBytesNeeded = 0;
+#endif
     long double dVol = 0.0;
 
     stConf = ReadGCConf(acFileConf);

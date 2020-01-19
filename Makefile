@@ -6,14 +6,24 @@
 
 # C compilers and flags
 CC = gcc
-ifeq ($(OPT_DEBUG), yes)
-CFLAGS = -g -pedantic -Wall -std=gnu99
+ifeq ($(shell uname), Darwin)
+CFLAGS_INC_PGPLOT =-I/opt/local/include# define if needed (as -I[...])
 else
-CFLAGS = -O3 -pedantic -Wall -std=gnu99
+CFLAGS_INC_PGPLOT =# define if needed (as -I[...])
+endif
+ifeq ($(OPT_DEBUG), yes)
+CFLAGS = -g -pedantic -Wall -std=gnu99 $(CFLAGS_INC_PGPLOT)
+else
+CFLAGS = -O3 -pedantic -Wall -std=gnu99 $(CFLAGS_INC_PGPLOT)
 endif
 
 # linker flags
-LFLAGS = -lm -lpgplot -lcpgplot
+ifeq ($(shell uname), Darwin)
+LFLAGS_PGPLOT_DIR =-L/opt/local/lib# define if not in $PATH (as -L[...])
+else
+LFLAGS_PGPLOT_DIR =# define if not in $PATH (as -L[...])
+endif
+LFLAGS = -lm -lpgplot -lcpgplot $(LFLAGS_PGPLOT_DIR)
 
 # directories
 SRCDIR = ./src

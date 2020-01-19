@@ -80,6 +80,7 @@ void HandleStopSignals(int iSigNo)
     return;
 }
 
+#if 0
 /*
  * Computes the amount of free memory
  */
@@ -87,6 +88,7 @@ unsigned long int GetFreeMem(void)
 {
     return (sysconf(_SC_PAGESIZE) * sysconf(_SC_AVPHYS_PAGES));
 }
+#endif
 
 /*
  * Reads the per-GC configuration file
