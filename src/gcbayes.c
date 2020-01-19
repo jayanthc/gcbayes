@@ -395,8 +395,9 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
 #endif
 
     /* total likelihood (flux domain) */
-    g_pdSTotLhd = (long double*) malloc((size_t) iLenSMean * iLenSD * iLenSMin * iLenN
-                                  * sizeof(long double));
+    g_pdSTotLhd
+        = (long double*) malloc((size_t) iLenSMean * iLenSD * iLenSMin * iLenN
+                                * sizeof(long double));
     if (NULL == g_pdSTotLhd)
     {
         (void) fprintf(stderr,
@@ -611,7 +612,8 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         return EXIT_FAILURE;
     }
 
-    g_pfLPostMarg_MeanSD = (float*) calloc((size_t) iLenLMean * iLenSD, sizeof(float));
+    g_pfLPostMarg_MeanSD = (float*) calloc((size_t) iLenLMean * iLenSD,
+                                           sizeof(float));
     if (NULL == g_pfLPostMarg_MeanSD)
     {
         (void) fprintf(stderr,
@@ -801,7 +803,10 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         Time = time(NULL);
         pstTime = localtime(&Time);
 
-        (void) strftime(acTimestamp, sizeof(acTimestamp), "%Y%m%d_%H%M%S", pstTime);
+        (void) strftime(acTimestamp,
+                        sizeof(acTimestamp),
+                        "%Y%m%d_%H%M%S",
+                        pstTime);
         (void) sprintf(acDevName,
                        "%s_%s.%s",
                        "gcbayes",
@@ -1391,8 +1396,9 @@ long double CalcS1Lhd(int in, float *pfFlux,
 
     for (int i = 0; i < in; ++i)
     {
-        dS1Lhd *= (expl((long double) -pow((log10f(pfFlux[i]) - fSMean), 2) / fOpt)
-                   / (dp_obs * fSD * sqrt(2 * M_PI)));
+        dS1Lhd
+            *= (expl((long double) -pow((log10f(pfFlux[i]) - fSMean), 2) / fOpt)
+                / (dp_obs * fSD * sqrt(2 * M_PI)));
         if (dS1Lhd > LDBL_MAX)
         {
             dS1Lhd = LDBL_MAX;
@@ -1593,7 +1599,8 @@ STATS GetStats(float* pfX, float* pfP, float fStepX, int iLen, int iPlotAll)
             stStats.iErrCode = EXIT_FAILURE;
             return stStats;
         }
-        pfCIPolyInt = (float *) malloc((size_t) (iIdxCIMin + 2) * sizeof(float));
+        pfCIPolyInt
+            = (float *) malloc((size_t) (iIdxCIMin + 2) * sizeof(float));
         if (NULL == pfCIPolyInt)
         {
             (void) fprintf(stderr,
@@ -1631,7 +1638,8 @@ STATS GetStats(float* pfX, float* pfP, float fStepX, int iLen, int iPlotAll)
     {
         /* reallocate memory for the polygon arrays */
         /* backup the original pointer before realloc() */
-        pfCIPoly = (float *) malloc((size_t) (iLen - iIdxCIMax + 2) * sizeof(float));
+        pfCIPoly
+            = (float *) malloc((size_t) (iLen - iIdxCIMax + 2) * sizeof(float));
         if (NULL == pfCIPoly)
         {
             (void) fprintf(stderr,
@@ -1642,7 +1650,8 @@ STATS GetStats(float* pfX, float* pfP, float fStepX, int iLen, int iPlotAll)
             return stStats;
         }
         /* backup the original pointer before realloc() */
-        pfCIPolyInt = (float *) malloc((size_t) (iLen - iIdxCIMax + 2) * sizeof(float));
+        pfCIPolyInt
+            = (float *) malloc((size_t) (iLen - iIdxCIMax + 2) * sizeof(float));
         if (NULL == pfCIPolyInt)
         {
             (void) fprintf(stderr,

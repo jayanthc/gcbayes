@@ -22,11 +22,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <unistd.h>
-
-//test
 #include <fenv.h>
-//
-
 #include <cpgplot.h>
 #include "colourmap.h"
 
