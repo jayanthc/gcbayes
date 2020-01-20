@@ -1025,7 +1025,7 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         }
         else
         {
-            cpgmtxt("T", -1.5, 0.85, 0.0, "(a)"); /* Ter 5 */
+            //cpgmtxt("T", -1.5, 0.85, 0.0, "(a)"); /* Ter 5 */
             //cpgmtxt("T", -1.5, 0.85, 0.0, "(b)"); /* 47 Tuc */
             //cpgmtxt("T", -1.5, 0.85, 0.0, "(c)");   /* M 28 */
         }
