@@ -1374,17 +1374,6 @@ int SetColourMap(int iCMap, int iIsColInv, float fColMin, float fColMax)
         return EXIT_SUCCESS;
     }
 
-    /* invert colours for hardcopy device, if it is not inverted already */
-    if (!(iIsColInv))
-    {
-        /* query hardcopy status */
-        cpgqinf("HARDCOPY", acQItem, &iLenQVal);
-        if (0 == strcmp(acQItem, "YES"))
-        {
-            /* TODO: this is a hardcopy device, so invert colours */
-        }
-    }
-
     for (i = 0; i < 64; ++i)
     {
         iColIndex = i + 2;
