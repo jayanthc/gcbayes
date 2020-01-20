@@ -310,9 +310,7 @@ void PrintUsage(const char *pcProgName)
     (void) printf("Name of colour map\n");
     (void) printf("    -f  --plot-ps                        ");
     (void) printf("Print to PS file, instead of screen\n");
-    (void) printf("    -z  --plot-all                       ");
-    (void) printf("Plot both S and L posteriors\n");
-    (void) printf("    -w  --plot-lall                      ");
+    (void) printf("    -w  --plot-all                       ");
     (void) printf("Plot all marginalised posteriors for L\n");
 
     return;
