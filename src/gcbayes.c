@@ -579,10 +579,10 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
                     for (m = 0; m < iLenN; ++m)
                     {
                         (g_pfLTotLhd
-                         + (i * iLenSD * iLenLMean * iLenSMin * iLenN)
-                         + (j * iLenLMean * iLenSMin * iLenN)
-                         + (n * iLenSMin * iLenN)   /* n instead of k */
-                         + (l * iLenN))[m]
+                         + ((size_t) i * iLenSD * iLenLMean * iLenSMin * iLenN)
+                         + ((size_t) j * iLenLMean * iLenSMin * iLenN)
+                         + ((size_t) n * iLenSMin * iLenN)   /* n instead of k */
+                         + ((size_t) l * iLenN))[m]
                             = (g_pfSTotLhd
                                 + (j * iLenSMean * iLenSMin * iLenN)
                                 + (k * iLenSMin * iLenN)
@@ -696,10 +696,10 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
                          + (k * iLenSMin * iLenN)
                          + (l * iLenN))[m]
                             = ((g_pfLTotLhd
-                                + (i * iLenSD * iLenLMean * iLenSMin * iLenN)
-                                + (j * iLenLMean * iLenSMin * iLenN)
-                                + (k * iLenSMin * iLenN)
-                                + (l * iLenN))[m] * g_pfPDist[i] * fOpt);
+                                + ((size_t) i * iLenSD * iLenLMean * iLenSMin * iLenN)
+                                + ((size_t) j * iLenLMean * iLenSMin * iLenN)
+                                + ((size_t) k * iLenSMin * iLenN)
+                                + ((size_t) l * iLenN))[m] * g_pfPDist[i] * fOpt);
                         /* marginalise the posterior */
                         (g_pfLPostMarg_MeanSD + j * iLenLMean)[k]
                             += (g_pfLPost
