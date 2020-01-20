@@ -1359,8 +1359,6 @@ int SetColourMap(int iCMap, int iIsColInv, float fColMin, float fColMax)
 {
     int iColMin = 0;
     int iColMax = 0;
-    char acQItem[LEN_GENSTRING] = {0};
-    int iLenQVal = 0;
     int iColIndex = 0;
     int i = 0;
     float (*paafCMap)[CMAP_LEVELS][3] = (float (*) [CMAP_LEVELS][3])
