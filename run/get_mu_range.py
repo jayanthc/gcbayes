@@ -31,8 +31,12 @@ mu_s_max = 2.0
 # mu_l_min = -3.19
 # mu_l_max = +2.04
 # bagchi et al. range
-mu_l_min = -2.0
-mu_l_max = +0.5
+# mu_l_min = -2.0
+# mu_l_max = +0.5
+
+# max. priors for omega cen
+mu_l_min = -1.75
+mu_l_max = -1.65
 
 mu_s = np.linspace(mu_s_min, mu_s_max, 100)
 mu_l = np.zeros((100, 100))

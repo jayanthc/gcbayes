@@ -1,2 +1,5 @@
 bin/*
 src/*.o
+run/*.ms
+run/*.ps
+run/*.pdf

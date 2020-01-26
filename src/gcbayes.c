@@ -204,9 +204,9 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     int m = 0;
     int n = 0;
     int in = 0;
-    int iLenN = (int) ((iMaxN - iStartN) / iStepN) + 1;
-    int iLenLMean = (int) ((fMaxLMean - fStartLMean) / fStepLMean) + 1;
-    int iLenSD = (int) ((fMaxSD - fStartSD) / fStepSD) + 1;
+    int iLenN = (int) roundf(((float) (iMaxN - iStartN) / iStepN) + 1);
+    int iLenLMean = (int) roundf(((fMaxLMean - fStartLMean) / fStepLMean) + 1);
+    int iLenSD = (int) roundf(((fMaxSD - fStartSD) / fStepSD) + 1);
     int iLenSMin = DEF_LEN_S_MIN;
     int iRangeN = iMaxN - iStartN;
     float fRangeLMean = fMaxLMean - fStartLMean;
@@ -283,7 +283,7 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         g_pfN[i] = (float) (iStartN + (i * iStepN));
     }
 
-    iLenSMean = (int) ((fMaxSMean - fStartSMean) / fStepSMean);
+    iLenSMean = (int) roundf(((fMaxSMean - fStartSMean) / fStepSMean));
     g_pfSMean = (float *) malloc((size_t) iLenSMean * sizeof(float));
     if (NULL == g_pfSMean)
     {
@@ -778,6 +778,8 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     free(g_pfPDist);
     g_pfPDist = NULL;
 
+    FILE *pFLPostMarg_MeanSD = NULL;
+
     /* open the PGPLOT graphics device */
     if (FALSE == iNeedPS)    /* plot to screen */
     {
@@ -798,6 +800,7 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         struct tm *pstTime = NULL;
         char acTimestamp[LEN_GENSTRING] = {0};
         char acDevName[LEN_GENSTRING] = {0};
+        char acPosteriorFileName[LEN_GENSTRING] = {0};
 
         /* get the current time */
         Time = time(NULL);
@@ -819,6 +822,21 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             (void) fprintf(stderr,
                            "ERROR: Opening graphics device %s failed!\n",
                            PG_DEV_PS_GRID);
+            return EXIT_FAILURE;
+        }
+
+        (void) sprintf(acPosteriorFileName,
+                       "%s_%s.%s",
+                       "gcbayes",
+                       acTimestamp,
+                       "ms");
+        pFLPostMarg_MeanSD = fopen(acPosteriorFileName, "wb");
+        if (NULL == pFLPostMarg_MeanSD)
+        {
+            (void) fprintf(stderr,
+                           "ERROR: Opening file %s failed! %s.\n",
+                           acPosteriorFileName,
+                           strerror(errno));
             return EXIT_FAILURE;
         }
     }
@@ -862,6 +880,19 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
                 {
                     (g_pfLPostMarg_MeanSD + i * iLenLMean)[j] /= fVol;
                 }
+            }
+
+            /* save marginalised posterior to file */
+            int iNumItems = fwrite(g_pfLPostMarg_MeanSD,
+                                   sizeof(float),
+                                   iLenSD * iLenLMean,
+                                   pFLPostMarg_MeanSD);
+            if (iNumItems != iLenSD * iLenLMean)
+            {
+                (void) fprintf(stderr,
+                               "ERROR: Writing to disk failed! %s.\n",
+                               strerror(errno));
+                return EXIT_FAILURE;
             }
 
             /* find min. and max. for plotting */
@@ -948,6 +979,11 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             free(g_pfLPostMarg_MeanSD);
             g_pfLPostMarg_MeanSD = NULL;
         }
+    }
+
+    if (TRUE == iNeedPS)
+    {
+        (void) fclose(pFLPostMarg_MeanSD);
     }
 
     /* plot marginalised posterior for N */

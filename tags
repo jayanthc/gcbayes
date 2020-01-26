@@ -1,144 +1,21 @@
-!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
-!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
-!_TAG_PROGRAM_NAME	Exuberant Ctags	//
-!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
-CMAP_AUTUMN	./src/colourmap.h	/^    CMAP_AUTUMN = 0,$/;"	e	enum:CMap_e
-CMAP_BLUE	./src/colourmap.h	/^    CMAP_BLUE$/;"	e	enum:CMap_e
-CMAP_BONE	./src/colourmap.h	/^    CMAP_BONE,$/;"	e	enum:CMap_e
-CMAP_COLORCUBE	./src/colourmap.h	/^    CMAP_COLORCUBE,$/;"	e	enum:CMap_e
-CMAP_COOL	./src/colourmap.h	/^    CMAP_COOL,$/;"	e	enum:CMap_e
-CMAP_COPPER	./src/colourmap.h	/^    CMAP_COPPER,$/;"	e	enum:CMap_e
-CMAP_FLAG	./src/colourmap.h	/^    CMAP_FLAG,$/;"	e	enum:CMap_e
-CMAP_GRAY	./src/colourmap.h	/^    CMAP_GRAY,$/;"	e	enum:CMap_e
-CMAP_GRAY_INV	./src/colourmap.h	/^    CMAP_GRAY_INV,$/;"	e	enum:CMap_e
-CMAP_HOT	./src/colourmap.h	/^    CMAP_HOT,$/;"	e	enum:CMap_e
-CMAP_HOT_INV	./src/colourmap.h	/^    CMAP_HOT_INV,$/;"	e	enum:CMap_e
-CMAP_HSV	./src/colourmap.h	/^    CMAP_HSV,$/;"	e	enum:CMap_e
-CMAP_JET	./src/colourmap.h	/^    CMAP_JET,$/;"	e	enum:CMap_e
-CMAP_LEVELS	./src/colourmap.h	/^#define CMAP_LEVELS /;"	d
-CMAP_LINES	./src/colourmap.h	/^    CMAP_LINES,$/;"	e	enum:CMap_e
-CMAP_PINK	./src/colourmap.h	/^    CMAP_PINK,$/;"	e	enum:CMap_e
-CMAP_PRISM	./src/colourmap.h	/^    CMAP_PRISM,$/;"	e	enum:CMap_e
-CMAP_SPRING	./src/colourmap.h	/^    CMAP_SPRING,$/;"	e	enum:CMap_e
-CMAP_STR_AUTUMN	./src/colourmap.h	/^#define CMAP_STR_AUTUMN /;"	d
-CMAP_STR_BLUE	./src/colourmap.h	/^#define CMAP_STR_BLUE /;"	d
-CMAP_STR_BONE	./src/colourmap.h	/^#define CMAP_STR_BONE /;"	d
-CMAP_STR_COLORCUBE	./src/colourmap.h	/^#define CMAP_STR_COLORCUBE /;"	d
-CMAP_STR_COOL	./src/colourmap.h	/^#define CMAP_STR_COOL /;"	d
-CMAP_STR_COPPER	./src/colourmap.h	/^#define CMAP_STR_COPPER /;"	d
-CMAP_STR_FLAG	./src/colourmap.h	/^#define CMAP_STR_FLAG /;"	d
-CMAP_STR_GRAY	./src/colourmap.h	/^#define CMAP_STR_GRAY /;"	d
-CMAP_STR_GRAY_INV	./src/colourmap.h	/^#define CMAP_STR_GRAY_INV /;"	d
-CMAP_STR_HOT	./src/colourmap.h	/^#define CMAP_STR_HOT /;"	d
-CMAP_STR_HOT_INV	./src/colourmap.h	/^#define CMAP_STR_HOT_INV /;"	d
-CMAP_STR_HSV	./src/colourmap.h	/^#define CMAP_STR_HSV /;"	d
-CMAP_STR_JET	./src/colourmap.h	/^#define CMAP_STR_JET /;"	d
-CMAP_STR_LINES	./src/colourmap.h	/^#define CMAP_STR_LINES /;"	d
-CMAP_STR_PINK	./src/colourmap.h	/^#define CMAP_STR_PINK /;"	d
-CMAP_STR_PRISM	./src/colourmap.h	/^#define CMAP_STR_PRISM /;"	d
-CMAP_STR_SPRING	./src/colourmap.h	/^#define CMAP_STR_SPRING /;"	d
-CMAP_STR_SUMMER	./src/colourmap.h	/^#define CMAP_STR_SUMMER /;"	d
-CMAP_STR_WHITE	./src/colourmap.h	/^#define CMAP_STR_WHITE /;"	d
-CMAP_STR_WINTER	./src/colourmap.h	/^#define CMAP_STR_WINTER /;"	d
-CMAP_SUMMER	./src/colourmap.h	/^    CMAP_SUMMER,$/;"	e	enum:CMap_e
-CMAP_WHITE	./src/colourmap.h	/^    CMAP_WHITE,$/;"	e	enum:CMap_e
-CMAP_WINTER	./src/colourmap.h	/^    CMAP_WINTER,$/;"	e	enum:CMap_e
-CMap_e	./src/colourmap.h	/^typedef enum CMap_e$/;"	g
-CMap_t	./src/colourmap.h	/^} CMap_t;$/;"	t	typeref:enum:CMap_e
-CalcPObs	./src/gcbayes.c	/^double CalcPObs(float fSMean, float fSD, float fSMin)$/;"	f
-CalcS1Lhd	./src/gcbayes.c	/^long double CalcS1Lhd(int in, float *pfFlux,$/;"	f
-CalcS2Lhd	./src/gcbayes.c	/^float CalcS2Lhd(int in, double dp_obs, int iN)$/;"	f
-CalcS3Lhd	./src/gcbayes.c	/^float CalcS3Lhd(float fSObs, int iN, float fSMean, float fSD)$/;"	f
-CleanUp	./src/gcbayes_func.c	/^void CleanUp()$/;"	f
-DEF_CMAP	./src/colourmap.h	/^#define DEF_CMAP /;"	d
-DEF_CMAP_STR	./src/colourmap.h	/^#define DEF_CMAP_STR /;"	d
-DEF_CONF_INT	./src/gcbayes.h	/^#define DEF_CONF_INT /;"	d
-DEF_LEN_DIST	./src/gcbayes.h	/^#define DEF_LEN_DIST /;"	d
-DEF_LEN_S_MIN	./src/gcbayes.h	/^#define DEF_LEN_S_MIN /;"	d
-DEF_MAX_LMEAN	./src/gcbayes.h	/^#define DEF_MAX_LMEAN /;"	d
-DEF_MAX_N	./src/gcbayes.h	/^#define DEF_MAX_N /;"	d
-DEF_MAX_SD	./src/gcbayes.h	/^#define DEF_MAX_SD /;"	d
-DEF_MIN_LMEAN	./src/gcbayes.h	/^#define DEF_MIN_LMEAN /;"	d
-DEF_MIN_N	./src/gcbayes.h	/^#define DEF_MIN_N /;"	d
-DEF_MIN_SD	./src/gcbayes.h	/^#define DEF_MIN_SD /;"	d
-DEF_MIN_S_MIN	./src/gcbayes.h	/^#define DEF_MIN_S_MIN /;"	d
-DEF_N	./src/gcbayes.h	/^#define DEF_N /;"	d
-DEF_STEP_MEAN	./src/gcbayes.h	/^#define DEF_STEP_MEAN /;"	d
-DEF_STEP_N	./src/gcbayes.h	/^#define DEF_STEP_N /;"	d
-DEF_STEP_SD	./src/gcbayes.h	/^#define DEF_STEP_SD /;"	d
-DoGrid	./src/gcbayes.c	/^int DoGrid(int iStartN, int iStepN, int iMaxN,$/;"	f
-FALSE	./src/gcbayes.h	/^#define FALSE /;"	d
-GC_CONF	./src/gcbayes.h	/^} GC_CONF;$/;"	t	typeref:struct:tagConf
-GetColourMapFromName	./src/colourmap.c	/^int GetColourMapFromName(char *pcCMapName)$/;"	f
-GetIndex	./src/gcbayes.c	/^int GetIndex(float* pfArray, int iLen, float fEpsilon, float fVal)$/;"	f
-GetStats	./src/gcbayes.c	/^STATS GetStats(float* pfX, float* pfP, float fStepX, int iLen, int iPlotAll)$/;"	f
-HandleStopSignals	./src/gcbayes_func.c	/^void HandleStopSignals(int iSigNo)$/;"	f
-LEN_GENSTRING	./src/colourmap.h	/^#define LEN_GENSTRING /;"	d
-LEN_GENSTRING	./src/gcbayes.h	/^#define LEN_GENSTRING /;"	d
-NUM_CMAPS	./src/colourmap.h	/^#define NUM_CMAPS /;"	d
-PG_CI_DEF	./src/gcbayes.h	/^#define PG_CI_DEF /;"	d
-PG_CI_PLOT	./src/gcbayes.h	/^#define PG_CI_PLOT /;"	d
-PG_DEV	./src/gcbayes.h	/^#define PG_DEV /;"	d
-PG_DEV_PS_GRID	./src/gcbayes.h	/^#define PG_DEV_PS_GRID /;"	d
-PG_HBIN_LIM	./src/gcbayes.h	/^#define PG_HBIN_LIM /;"	d
-PG_SYMBOL	./src/gcbayes.h	/^#define PG_SYMBOL /;"	d
-PG_TICK_STEPS_X	./src/gcbayes.h	/^#define PG_TICK_STEPS_X /;"	d
-PG_TICK_STEPS_Y	./src/gcbayes.h	/^#define PG_TICK_STEPS_Y /;"	d
-PG_VP_MB	./src/gcbayes.h	/^#define PG_VP_MB /;"	d
-PG_VP_ML	./src/gcbayes.h	/^#define PG_VP_ML /;"	d
-PG_VP_MR	./src/gcbayes.h	/^#define PG_VP_MR /;"	d
-PG_VP_MT	./src/gcbayes.h	/^#define PG_VP_MT /;"	d
-PrintUsage	./src/gcbayes_func.c	/^void PrintUsage(const char *pcProgName)$/;"	f
-ReadGCConf	./src/gcbayes_func.c	/^GC_CONF ReadGCConf(char* pcFileConf)$/;"	f
-RegisterSignalHandlers	./src/gcbayes_func.c	/^int RegisterSignalHandlers(void)$/;"	f
-SQRT_2	./src/gcbayes.h	/^#define SQRT_2 /;"	d
-STATS	./src/gcbayes.h	/^} STATS;$/;"	t	typeref:struct:tagStats
-SetColourMap	./src/colourmap.c	/^int SetColourMap(int iCMap, int iIsColInv, float fColMin, float fColMax)$/;"	f
-TRUE	./src/gcbayes.h	/^#define TRUE /;"	d
-__COLOURMAP_H__	./src/colourmap.h	/^#define __COLOURMAP_H__$/;"	d
-__GCBAYES_H__	./src/gcbayes.h	/^#define __GCBAYES_H__$/;"	d
-acFileFlux	./src/gcbayes.h	/^    char acFileFlux[LEN_GENSTRING];$/;"	m	struct:tagConf
-acGCName	./src/gcbayes.h	/^    char acGCName[LEN_GENSTRING];$/;"	m	struct:tagConf
-fDist	./src/gcbayes.h	/^    float fDist;$/;"	m	struct:tagConf
-fDistSD	./src/gcbayes.h	/^    float fDistSD;$/;"	m	struct:tagConf
-fMaxCI	./src/gcbayes.h	/^    float fMaxCI;$/;"	m	struct:tagStats
-fMaxSMean	./src/gcbayes.h	/^    float fMaxSMean;$/;"	m	struct:tagConf
-fMean	./src/gcbayes.h	/^    float fMean;$/;"	m	struct:tagStats
-fMedian	./src/gcbayes.h	/^    float fMedian;$/;"	m	struct:tagStats
-fMedianP	./src/gcbayes.h	/^    float fMedianP;$/;"	m	struct:tagStats
-fMinCI	./src/gcbayes.h	/^    float fMinCI;$/;"	m	struct:tagStats
-fMinSMean	./src/gcbayes.h	/^    float fMinSMean;$/;"	m	struct:tagConf
-fMode	./src/gcbayes.h	/^    float fMode;$/;"	m	struct:tagStats
-fSMin	./src/gcbayes.h	/^    float fSMin;    \/* read from the above file, for now *\/$/;"	m	struct:tagConf
-fSObs	./src/gcbayes.h	/^    float fSObs;$/;"	m	struct:tagConf
-factln	./src/gcbayes.c	/^float factln(int n)$/;"	f
-g_aaafCMap	./src/colourmap.c	/^const float g_aaafCMap[NUM_CMAPS][CMAP_LEVELS][3] = {$/;"	v
-g_iErfEntries	./src/gcbayes_func.c	/^int g_iErfEntries = 0;$/;"	v
-g_padErfTable	./src/gcbayes_func.c	/^double (*g_padErfTable)[][2] = NULL;$/;"	v
-g_pdSTotLhd	./src/gcbayes.c	/^long double* g_pdSTotLhd = NULL;$/;"	v
-g_pfDist	./src/gcbayes.c	/^float* g_pfDist = NULL;$/;"	v
-g_pfLMean	./src/gcbayes.c	/^float* g_pfLMean = NULL;$/;"	v
-g_pfLPost	./src/gcbayes.c	/^float* g_pfLPost = NULL;$/;"	v
-g_pfLPostMarg_Mean	./src/gcbayes.c	/^float* g_pfLPostMarg_Mean = NULL;$/;"	v
-g_pfLPostMarg_MeanSD	./src/gcbayes.c	/^float* g_pfLPostMarg_MeanSD = NULL;$/;"	v
-g_pfLPostMarg_N	./src/gcbayes.c	/^float* g_pfLPostMarg_N = NULL;$/;"	v
-g_pfLPostMarg_SD	./src/gcbayes.c	/^float* g_pfLPostMarg_SD = NULL;$/;"	v
-g_pfLPostMarg_SMin	./src/gcbayes.c	/^float* g_pfLPostMarg_SMin = NULL;$/;"	v
-g_pfLPostMarg_d	./src/gcbayes.c	/^float* g_pfLPostMarg_d = NULL;$/;"	v
-g_pfLTotLhd	./src/gcbayes.c	/^float* g_pfLTotLhd = NULL;$/;"	v
-g_pfLogN	./src/gcbayes.c	/^float* g_pfLogN = NULL;$/;"	v
-g_pfN	./src/gcbayes.c	/^float* g_pfN = NULL;$/;"	v
-g_pfPDist	./src/gcbayes.c	/^float* g_pfPDist = NULL;$/;"	v
-g_pfSD	./src/gcbayes.c	/^float* g_pfSD = NULL;$/;"	v
-g_pfSMean	./src/gcbayes.c	/^float* g_pfSMean = NULL;$/;"	v
-g_pfSMin	./src/gcbayes.c	/^float* g_pfSMin = NULL;$/;"	v
-g_pfSTotLhd	./src/gcbayes.c	/^float* g_pfSTotLhd = NULL;$/;"	v
-g_pfS_i	./src/gcbayes.c	/^float* g_pfS_i = NULL;$/;"	v
-gammln	./src/gcbayes.c	/^float gammln(float xx)$/;"	f
-iErrCode	./src/gcbayes.h	/^    int   iErrCode;$/;"	m	struct:tagStats
-in	./src/gcbayes.h	/^    int in;$/;"	m	struct:tagConf
-main	./src/gcbayes.c	/^int main(int argc, char *argv[])$/;"	f
-tagConf	./src/gcbayes.h	/^typedef struct tagConf$/;"	s
-tagStats	./src/gcbayes.h	/^typedef struct tagStats$/;"	s
+CMap_t	./src/colourmap.h	/^} CMap_t;$/
+CalcPObs	./src/gcbayes.c	/^double CalcPObs(float fSMean, float fSD, float fSM/
+CalcS1Lhd	./src/gcbayes.c	/^long double CalcS1Lhd(int in, float *pfFlux,$/
+CalcS2Lhd	./src/gcbayes.c	/^float CalcS2Lhd(int in, double dp_obs, int iN)$/
+CalcS3Lhd	./src/gcbayes.c	/^float CalcS3Lhd(float fSObs, int iN, float fSMean,/
+CleanUp	./src/gcbayes_func.c	/^void CleanUp()$/
+DoGrid	./src/gcbayes.c	/^int DoGrid(int iStartN, int iStepN, int iMaxN,$/
+GC_CONF	./src/gcbayes.h	/^} GC_CONF;$/
+GetColourMapFromName	./src/colourmap.c	/^int GetColourMapFromName(char *pcCMapName)$/
+GetFreeMem	./src/gcbayes_func.c	/^unsigned long int GetFreeMem(void)$/
+GetIndex	./src/gcbayes.c	/^int GetIndex(float* pfArray, int iLen, float fEpsi/
+GetStats	./src/gcbayes.c	/^STATS GetStats(float* pfX, float* pfP, float fStep/
+HandleStopSignals	./src/gcbayes_func.c	/^void HandleStopSignals(int iSigNo)$/
+Mgcbayes	./src/gcbayes.c	/^int main(int argc, char *argv[])$/
+PrintUsage	./src/gcbayes_func.c	/^void PrintUsage(const char *pcProgName)$/
+ReadGCConf	./src/gcbayes_func.c	/^GC_CONF ReadGCConf(char* pcFileConf)$/
+RegisterSignalHandlers	./src/gcbayes_func.c	/^int RegisterSignalHandlers(void)$/
+STATS	./src/gcbayes.h	/^} STATS;$/
+SetColourMap	./src/colourmap.c	/^int SetColourMap(int iCMap, int iIsColInv, float f/
+factln	./src/gcbayes.c	/^float factln(int n)$/
+gammln	./src/gcbayes.c	/^float gammln(float xx)$/

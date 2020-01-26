@@ -1,0 +1,8 @@
+OmegaCen                # GC name
+flux_omegacen           # path to flux file
+5                       # n
+5.19                    # d (kpc)
+0.075                   # sigma_d
+0.631                   # S_obs (mJy); Sum of Table 1 of Dai et al. (2019) minus No. 6 and No. 7
+-3.22                   # min_mu_s, corresponding to min_mu_l = -1.75 and the above distance + uncertainty
+-3.04                   # max_mu_s, corresponding to max_mu_l = -1.65 and the above distance + uncertainty
