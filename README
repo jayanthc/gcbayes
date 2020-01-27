@@ -49,25 +49,29 @@ Usage: bin/gcbayes [options]
 Examples:
 
 Figure 2 and Table 2 (wide priors) in Chennamangalam et al. (2013):
-gcbayes -N 25 -S 1 -X 500 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y ter5_wide.gc -w
-
+../bin/gcbayes -N 25 -S 1 -X 500 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y ter5_wide.gc -w
 Figure 3(a) and Table 2 (narrow priors) in Chennamangalam et al. (2013):
-gcbayes -N 25 -S 1 -X 500 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y ter5_narrow.gc
-
+../bin/gcbayes -N 25 -S 1 -X 500 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y ter5_narrow.gc
 Figure 3(b) and Table 2 (narrow priors) in Chennamangalam et al. (2013):
-gcbayes -N 14 -S 1 -X 225 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y 47tuc_narrow.gc
-
-gcbayes -N 14 -S 1 -X 225 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y 47tuc_wide.gc -w
-
+../bin/gcbayes -N 14 -S 1 -X 225 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y 47tuc_narrow.gc
 Figure 3(c) and Table 2 (narrow priors) in Chennamangalam et al. (2013):
-gcbayes -N 9 -S 1 -X 400 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y m28_narrow.gc
+../bin/gcbayes -N 9 -S 1 -X 400 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y m28_narrow.gc
 
-gcbayes -N 9 -S 1 -X 800 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y m28_wide.gc -w
+../bin/gcbayes -N 25 -S 1 -X 900 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y ter5_wide.gc -w -f
+../bin/gcbayes -N 25 -S 1 -X 900 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y ter5_narrow.gc -f
+../bin/gcbayes -N 25 -S 1 -X 900 -m -1.75 -p 0.005 -u -1.65 -s 0.95 -e 0.001 -a 1.05 -y ter5_narrow_max.gc -f
 
-gcbayes -N 5 -S 1 -X 100 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y omegacen_narrow.gc
-gcbayes -N 5 -S 1 -X 500 -m -1.75 -p 0.005 -u -1.65 -s 0.65 -e 0.001 -a 0.75 -y omegacen_narrow_max.gc
-gcbayes -N 5 -S 1 -X 300 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y omegacen_wide.gc -w
+../bin/gcbayes -N 14 -S 1 -X 200 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y 47tuc_wide.gc -w -f
+../bin/gcbayes -N 14 -S 1 -X 200 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y 47tuc_narrow.gc -f
+../bin/gcbayes -N 14 -S 1 -X 200 -m 0.25 -p 0.005 -u 0.35 -s 0.35 -e 0.001 -a 0.45 -y 47tuc_narrow_max.gc -f
 
+../bin/gcbayes -N 9 -S 1 -X 1200 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y m28_wide.gc -w -f
+../bin/gcbayes -N 9 -S 1 -X 1200 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y m28_narrow.gc -f
+../bin/gcbayes -N 9 -S 1 -X 1200 -m -1.95 -p 0.005 -u -1.85 -s 0.85 -e 0.001 -a 0.95 -y m28_narrow_max.gc -f
+
+../bin/gcbayes -N 5 -S 1 -X 500 -m -2.0 -p 0.05 -u 0.5 -s 0.2 -e 0.01 -a 1.4 -y omegacen_wide.gc -w -f
+../bin/gcbayes -N 5 -S 1 -X 500 -m -1.19 -p 0.005 -u -1.04 -s 0.91 -e 0.001 -a 0.98 -y omegacen_narrow.gc -f
+../bin/gcbayes -N 5 -S 1 -X 500 -m -1.75 -p 0.005 -u -1.65 -s 0.65 -e 0.001 -a 0.75 -y omegacen_narrow_max.gc -f
 
 In addition to the compiled binary, the program requires a config file (such as
 the file run/ter5_narrow.gc) to be in the directory where the program is run.

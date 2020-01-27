@@ -1,5 +1,5 @@
 bin/*
 src/*.o
-run/*.ms
+run/*.post*
 run/*.ps
 run/*.pdf

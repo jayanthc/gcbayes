@@ -1,0 +1,8 @@
+47Tuc                   # GC name
+flux_47tuc              # path to flux file
+14                      # n
+4.69                    # d (kpc)
+0.17                    # sigma_d
+2.0                     # S_obs (mJy)
+-1.18                   # min_mu_s, corresponding to min_mu_l = 0.25 and the above distance + uncertainty
+-0.89                   # max_mu_s, corresponding to max_mu_l = 0.35 and the above distance + uncertainty

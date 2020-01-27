@@ -779,6 +779,7 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
     g_pfPDist = NULL;
 
     FILE *pFLPostMarg_MeanSD = NULL;
+    FILE *pFLPostMarg_N = NULL;
 
     /* open the PGPLOT graphics device */
     if (FALSE == iNeedPS)    /* plot to screen */
@@ -825,13 +826,31 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
             return EXIT_FAILURE;
         }
 
+        if (iPlotAll)
+        {
+            (void) sprintf(acPosteriorFileName,
+                           "%s_%s.%s",
+                           "gcbayes",
+                           acTimestamp,
+                           "post_ms");
+            pFLPostMarg_MeanSD = fopen(acPosteriorFileName, "wb");
+            if (NULL == pFLPostMarg_MeanSD)
+            {
+                (void) fprintf(stderr,
+                               "ERROR: Opening file %s failed! %s.\n",
+                               acPosteriorFileName,
+                               strerror(errno));
+                return EXIT_FAILURE;
+            }
+        }
+
         (void) sprintf(acPosteriorFileName,
                        "%s_%s.%s",
                        "gcbayes",
                        acTimestamp,
-                       "ms");
-        pFLPostMarg_MeanSD = fopen(acPosteriorFileName, "wb");
-        if (NULL == pFLPostMarg_MeanSD)
+                       "post_n");
+        pFLPostMarg_N = fopen(acPosteriorFileName, "wb");
+        if (NULL == pFLPostMarg_N)
         {
             (void) fprintf(stderr,
                            "ERROR: Opening file %s failed! %s.\n",
@@ -882,17 +901,22 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
                 }
             }
 
-            /* save marginalised posterior to file */
-            int iNumItems = fwrite(g_pfLPostMarg_MeanSD,
-                                   sizeof(float),
-                                   iLenSD * iLenLMean,
-                                   pFLPostMarg_MeanSD);
-            if (iNumItems != iLenSD * iLenLMean)
+            if (TRUE == iNeedPS)
             {
-                (void) fprintf(stderr,
-                               "ERROR: Writing to disk failed! %s.\n",
-                               strerror(errno));
-                return EXIT_FAILURE;
+                /* save marginalised posterior to file */
+                int iNumItems = fwrite(g_pfLPostMarg_MeanSD,
+                                       sizeof(float),
+                                       iLenSD * iLenLMean,
+                                       pFLPostMarg_MeanSD);
+                if (iNumItems != iLenSD * iLenLMean)
+                {
+                    (void) fprintf(stderr,
+                                   "ERROR: Writing to disk failed! %s.\n",
+                                   strerror(errno));
+                    return EXIT_FAILURE;
+                }
+
+                (void) fclose(pFLPostMarg_MeanSD);
             }
 
             /* find min. and max. for plotting */
@@ -981,11 +1005,6 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         }
     }
 
-    if (TRUE == iNeedPS)
-    {
-        (void) fclose(pFLPostMarg_MeanSD);
-    }
-
     /* plot marginalised posterior for N */
     {
         /* find the area for normalisation (to calculate the mean, etc.) */
@@ -998,6 +1017,24 @@ int DoGrid(int iStartN, int iStepN, int iMaxN,
         for (i = 0; i < iLenN; ++i)
         {
             g_pfLPostMarg_N[i] /= fArea;
+        }
+
+        if (TRUE == iNeedPS)
+        {
+            /* save marginalised posterior to file */
+            int iNumItems = fwrite(g_pfLPostMarg_N,
+                                   sizeof(float),
+                                   iLenN,
+                                   pFLPostMarg_N);
+            if (iNumItems != iLenN)
+            {
+                (void) fprintf(stderr,
+                               "ERROR: Writing to disk failed! %s.\n",
+                               strerror(errno));
+                return EXIT_FAILURE;
+            }
+
+            (void) fclose(pFLPostMarg_N);
         }
 
         /* find min. and max. for plotting */
